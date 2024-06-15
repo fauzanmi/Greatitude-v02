@@ -39,6 +39,9 @@ android {
     buildFeatures{
         dataBinding = true
     }
+    ksp {
+        arg("room.schemaLocation", "${projectDir}/schemas".toString())
+    }
 }
 
 dependencies {
