@@ -30,10 +30,9 @@
         <action
             android:id="@+id/action_editNoteFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="note"
+            app:argType="com.tekber.greatitude.model.Note"
+            app:nullable="true"/>
     </fragment>
-    <argument
-        android:name="note"
-        app:argType="com.tekber.greatitude.model.Note"
-        app:nullable="true"/>
-
 </navigation>
