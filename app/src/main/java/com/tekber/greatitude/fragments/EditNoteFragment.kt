@@ -23,8 +23,8 @@ import com.tekber.greatitude.viewmodel.NoteViewModel
 
 class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
-    private var editNoteFragment: FragmentEditNoteBinding? = null
-    private val binding get() = editNoteFragment
+    private var _binding: FragmentEditNoteBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var noteViewModel: NoteViewModel
     private lateinit var currentNote: Note
@@ -36,7 +36,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        editNoteFragment = FragmentEditNoteBinding.inflate(inflater, container, false)
+        _binding = FragmentEditNoteBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -67,15 +67,17 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
     }
 
     private fun deleteNote(){
-        AlertDialog.Builder(activity).apply {
+//        AlertDialog.Builder(activity).apply {
+        AlertDialog.Builder(requireContext()).apply {
             setTitle("Delete Note")
-            SetMessage("Do you want to delete this note?")
-            setPositiveButtonIcon("Delete"){_,_ ->
+            setMessage("Do you want to delete this note?")
+            setPositiveButton("Delete") { _, _ ->
                 noteViewModel.deleteNote(currentNote)
                 Toast.makeText(context, "Note Deleted", Toast.LENGTH_SHORT).show()
                 view?.findNavController()?.popBackStack(R.id.homeFragment, false)
             }
-            setNegativeButtonIcon("Cancel", null)
+//            setNegativeButtonIcon("Cancel", null)
+            setNegativeButton("Cancel", null)
         }.create().show()
     }
 
@@ -95,6 +97,9 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
     override fun onDestroy() {
         super.onDestroy()
-        editNoteFragment = null
+        _binding = null
     }
 }
+
+//note :
+//Ganti editNoteFragment menjadi _binding.
